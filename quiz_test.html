@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+    }
+    #submit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+    #score {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simple Quiz</h1>
+
+  <form id="quiz-form">
+    <div class="question">
+      <p>1. When faced with a challenge at work, you say:</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="5"> This is too hard! Let someone else handle it.</label>
+        <label><input type="radio" name="q1" value="10"> Wow, this is challenging</label>
+        <label><input type="radio" name="q1" value="15"> Autumn</label>
+        <label><input type="radio" name="q1" value="20"> Winter</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. Pick a pet:</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="10"> Dog</label>
+        <label><input type="radio" name="q2" value="15"> Cat</label>
+        <label><input type="radio" name="q2" value="5"> Bird</label>
+        <label><input type="radio" name="q2" value="20"> Fish</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>3. Choose a drink:</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="5"> Water</label>
+        <label><input type="radio" name="q3" value="10"> Juice</label>
+        <label><input type="radio" name="q3" value="15"> Soda</label>
+        <label><input type="radio" name="q3" value="20"> Coffee</label>
+      </div>
+    </div>
+
+    <button type="button" id="submit-btn">Submit</button>
+  </form>
+
+  <div id="score"></div>
+
+  <script>
+    document.getElementById("submit-btn").addEventListener("click", function() {
+      const form = document.getElementById("quiz-form");
+      const formData = new FormData(form);
+      let total = 0;
+
+      for (let [key, value] of formData.entries()) {
+        total += parseInt(value);
+      }
+
+      const answered = ["q1", "q2", "q3"].every(q => formData.has(q));
+      const scoreBox = document.getElementById("score");
+
+      if (answered) {
+        scoreBox.textContent = `Your total score is: ${total}`;
+      } else {
+        scoreBox.textContent = "Please answer all questions before submitting.";
+      }
+    });
+  </script>
+
+</body>
+</html>
